@@ -1,7 +1,27 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { User, Session } from '@supabase/supabase-js';
-import { auth, db } from '../lib/supabase';
-import type { UserProfile } from '../types/database';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+
+interface User {
+  id: string;
+  email: string;
+  user_metadata?: {
+    full_name?: string;
+    phone?: string;
+  };
+}
+
+interface UserProfile {
+  id: string;
+  email: string;
+  full_name: string | null;
+  phone: string | null;
+  address: string | null;
+  preferences: Record<string, any>;
+  is_admin: boolean;
+}
+
+interface Session {
+  user: User;
+}
 
 interface AuthContextType {
   user: User | null;
@@ -25,92 +45,32 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  // Load user profile
-  const loadUserProfile = async (userId: string) => {
-    try {
-      const { data: existingProfile } = await db.getUserProfile(userId);
-      
-      if (existingProfile) {
-        setProfile(existingProfile);
-      } else {
-        // Create profile if it doesn't exist
-        const { data: userData } = await auth.getCurrentUser();
-        if (userData.user) {
-          const newProfile = {
-            id: userId,
-            email: userData.user.email || '',
-            full_name: userData.user.user_metadata?.full_name || null,
-            phone: userData.user.user_metadata?.phone || null,
-            address: null,
-            preferences: {},
-            is_admin: false
-          };
-          
-          const { data: createdProfile } = await db.createUserProfile(newProfile);
-          if (createdProfile) {
-            setProfile(createdProfile);
-          }
-        }
-      }
-    } catch (error) {
-      console.error('Error loading user profile:', error);
-    }
-  };
-
-  // Initialize auth state
-  useEffect(() => {
-    // Get initial session
-    const initializeAuth = async () => {
-      try {
-        const { data: { user }, error } = await auth.getCurrentUser();
-        
-        if (error) {
-          // Only log actual errors, not expected "no session" states
-          if (error.message !== 'Auth session missing!' && !error.message?.includes('session_not_found')) {
-            console.error('Error getting current user:', error);
-          }
-        } else {
-          setUser(user);
-          if (user) {
-            await loadUserProfile(user.id);
-          }
-        }
-      } catch (error) {
-        console.error('Auth initialization error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    initializeAuth();
-
-    // Listen for auth changes
-    const { data: { subscription } } = auth.onAuthStateChange(async (event, session) => {
-      setSession(session);
-      
-      if (session?.user) {
-        await loadUserProfile(session.user.id);
-      } else {
-        setProfile(null);
-      }
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const [loading, setLoading] = useState(false);
 
   const signUp = async (email: string, password: string, userData?: { full_name?: string; phone?: string }) => {
     try {
       setLoading(true);
-      const { data, error } = await auth.signUp(email, password, userData);
+      // Mock signup - just create a user object
+      const mockUser: User = {
+        id: `user_${Date.now()}`,
+        email,
+        user_metadata: userData
+      };
       
-      if (error) {
-        return { error };
-      }
+      const mockProfile: UserProfile = {
+        id: mockUser.id,
+        email,
+        full_name: userData?.full_name || null,
+        phone: userData?.phone || null,
+        address: null,
+        preferences: {},
+        is_admin: false
+      };
 
-      // Profile will be created automatically when user confirms email
+      setUser(mockUser);
+      setProfile(mockProfile);
+      setSession({ user: mockUser });
+      
       return { error: null };
     } catch (error) {
       console.error('Sign up error:', error);
@@ -123,12 +83,27 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const signIn = async (email: string, password: string) => {
     try {
       setLoading(true);
-      const { data, error } = await auth.signIn(email, password);
+      // Mock signin - create a user if it doesn't exist
+      const mockUser: User = {
+        id: `user_${Date.now()}`,
+        email,
+        user_metadata: {}
+      };
       
-      if (error) {
-        return { error };
-      }
+      const mockProfile: UserProfile = {
+        id: mockUser.id,
+        email,
+        full_name: null,
+        phone: null,
+        address: null,
+        preferences: {},
+        is_admin: false
+      };
 
+      setUser(mockUser);
+      setProfile(mockProfile);
+      setSession({ user: mockUser });
+      
       return { error: null };
     } catch (error) {
       console.error('Sign in error:', error);
@@ -141,16 +116,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const signOut = async () => {
     try {
       setLoading(true);
-      const { error } = await auth.signOut();
-      
-      if (error) {
-        return { error };
-      }
-
       setUser(null);
       setProfile(null);
       setSession(null);
-      
       return { error: null };
     } catch (error) {
       console.error('Sign out error:', error);
@@ -166,16 +134,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     try {
-      const { data, error } = await db.updateUserProfile(user.id, updates);
-      
-      if (error) {
-        return { error };
+      if (profile) {
+        const updatedProfile = { ...profile, ...updates };
+        setProfile(updatedProfile);
       }
-
-      if (data) {
-        setProfile(data);
-      }
-      
       return { error: null };
     } catch (error) {
       console.error('Update profile error:', error);
@@ -184,13 +146,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   const refreshProfile = async () => {
-    if (!user) return;
-    
-    try {
-      await loadUserProfile(user.id);
-    } catch (error) {
-      console.error('Refresh profile error:', error);
-    }
+    // Mock implementation - no action needed
+    return Promise.resolve();
   };
 
   const value = {

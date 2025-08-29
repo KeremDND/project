@@ -1,11 +1,30 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { db, subscriptions } from '../lib/supabase';
-import type { CartItemWithProduct, CartItemInsert, CartItemUpdate } from '../types/database';
+
+interface CartItem {
+  id: string;
+  user_id: string;
+  product_id: string;
+  size_info: any;
+  quantity: number;
+  product?: any;
+}
+
+interface CartItemInsert {
+  user_id: string;
+  product_id: string;
+  size_info: any;
+  quantity: number;
+}
+
+interface CartItemUpdate {
+  quantity?: number;
+  size_info?: any;
+}
 
 export function useCart() {
   const { user } = useAuth();
-  const [cartItems, setCartItems] = useState<CartItemWithProduct[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
 
@@ -19,13 +38,9 @@ export function useCart() {
       setLoading(true);
       setError(null);
       
-      const { data, error: fetchError } = await db.getCart(user.id);
-      
-      if (fetchError) {
-        throw fetchError;
-      }
-      
-      setCartItems(data || []);
+      // Mock cart data - in a real app, this would come from a database
+      const mockCartItems: CartItem[] = [];
+      setCartItems(mockCartItems);
     } catch (err) {
       console.error('Error fetching cart:', err);
       setError(err);
@@ -38,20 +53,6 @@ export function useCart() {
     fetchCart();
   }, [user]);
 
-  // Subscribe to real-time cart updates
-  useEffect(() => {
-    if (!user) return;
-
-    const subscription = subscriptions.subscribeToCart(user.id, (payload) => {
-      console.log('Cart update:', payload);
-      fetchCart();
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [user]);
-
   const addToCart = async (productId: string, sizeInfo: any, quantity: number = 1) => {
     if (!user) {
       throw new Error('Must be logged in to add to cart');
@@ -60,23 +61,17 @@ export function useCart() {
     try {
       setError(null);
       
-      const cartItem: CartItemInsert = {
+      const newItem: CartItem = {
+        id: `cart_${Date.now()}`,
         user_id: user.id,
         product_id: productId,
         size_info: sizeInfo,
         quantity
       };
 
-      const { data, error: addError } = await db.addToCart(cartItem);
+      setCartItems(prev => [...prev, newItem]);
       
-      if (addError) {
-        throw addError;
-      }
-      
-      // Refresh cart
-      await fetchCart();
-      
-      return { data, error: null };
+      return { data: newItem, error: null };
     } catch (err) {
       console.error('Error adding to cart:', err);
       setError(err);
@@ -88,16 +83,11 @@ export function useCart() {
     try {
       setError(null);
       
-      const { data, error: updateError } = await db.updateCartItem(itemId, updates);
+      setCartItems(prev => prev.map(item => 
+        item.id === itemId ? { ...item, ...updates } : item
+      ));
       
-      if (updateError) {
-        throw updateError;
-      }
-      
-      // Refresh cart
-      await fetchCart();
-      
-      return { data, error: null };
+      return { data: null, error: null };
     } catch (err) {
       console.error('Error updating cart item:', err);
       setError(err);
@@ -109,14 +99,7 @@ export function useCart() {
     try {
       setError(null);
       
-      const { error: removeError } = await db.removeFromCart(itemId);
-      
-      if (removeError) {
-        throw removeError;
-      }
-      
-      // Refresh cart
-      await fetchCart();
+      setCartItems(prev => prev.filter(item => item.id !== itemId));
       
       return { error: null };
     } catch (err) {
@@ -131,15 +114,7 @@ export function useCart() {
 
     try {
       setError(null);
-      
-      const { error: clearError } = await db.clearCart(user.id);
-      
-      if (clearError) {
-        throw clearError;
-      }
-      
       setCartItems([]);
-      
       return { error: null };
     } catch (err) {
       console.error('Error clearing cart:', err);

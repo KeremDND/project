@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { db } from '../lib/supabase';
-import type { Favorite } from '../types/database';
+
+interface Favorite {
+  id: string;
+  user_id: string;
+  product_id: string;
+  created_at: string;
+}
 
 export function useFavorites() {
   const { user } = useAuth();
-  const [favorites, setFavorites] = useState<any[]>([]);
+  const [favorites, setFavorites] = useState<Favorite[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
 
@@ -19,13 +24,9 @@ export function useFavorites() {
       setLoading(true);
       setError(null);
       
-      const { data, error: fetchError } = await db.getFavorites(user.id);
-      
-      if (fetchError) {
-        throw fetchError;
-      }
-      
-      setFavorites(data || []);
+      // Mock favorites data - in a real app, this would come from a database
+      const mockFavorites: Favorite[] = [];
+      setFavorites(mockFavorites);
     } catch (err) {
       console.error('Error fetching favorites:', err);
       setError(err);
@@ -46,16 +47,16 @@ export function useFavorites() {
     try {
       setError(null);
       
-      const { data, error: addError } = await db.addToFavorites(user.id, productId);
+      const newFavorite: Favorite = {
+        id: `fav_${Date.now()}`,
+        user_id: user.id,
+        product_id: productId,
+        created_at: new Date().toISOString()
+      };
+
+      setFavorites(prev => [...prev, newFavorite]);
       
-      if (addError) {
-        throw addError;
-      }
-      
-      // Refresh favorites
-      await fetchFavorites();
-      
-      return { data, error: null };
+      return { data: newFavorite, error: null };
     } catch (err) {
       console.error('Error adding to favorites:', err);
       setError(err);
@@ -71,14 +72,7 @@ export function useFavorites() {
     try {
       setError(null);
       
-      const { error: removeError } = await db.removeFromFavorites(user.id, productId);
-      
-      if (removeError) {
-        throw removeError;
-      }
-      
-      // Refresh favorites
-      await fetchFavorites();
+      setFavorites(prev => prev.filter(fav => fav.product_id !== productId));
       
       return { error: null };
     } catch (err) {

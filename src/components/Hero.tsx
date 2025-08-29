@@ -3,7 +3,7 @@ import { ArrowRight, Cuboid as Cube, MapPin, Mail, Phone, Send, Target, Truck, R
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCarpetManifest } from '../hooks/useCarpetManifest';
 import { OptimizedCarpetPicture } from './OptimizedCarpetPicture';
-import { db } from '../lib/supabase';
+
 
 // Lazy load 3D viewer
 const Product3DViewer = lazy(() => import('./Product3DViewer'));
@@ -12,9 +12,23 @@ interface HeroProps {
   onNavigate: (page: 'home' | 'shop' | 'product' | 'gallery' | 'about' | 'support') => void;
 }
 
+interface Store {
+  id: number;
+  name: string;
+  address: string;
+  city: string;
+  lat: number;
+  lng: number;
+  phone: string;
+  mobile?: string;
+  hours: string;
+  mapUrl: string;
+  distance?: number;
+}
+
 export default function Hero({ onNavigate }: HeroProps) {
   const { t } = useLanguage();
-  const { carpets, loading: manifestLoading } = useCarpetManifest();
+  const { carpets } = useCarpetManifest();
   const [show3DViewer, setShow3DViewer] = useState(false);
   const [selected3DProduct, setSelected3DProduct] = useState<any>(null);
   const [selectedCertificate, setSelectedCertificate] = useState<number | null>(null);
@@ -28,7 +42,7 @@ export default function Hero({ onNavigate }: HeroProps) {
   const storesRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
   // Store data
-  const stores = [
+  const stores: Store[] = [
     {
       id: 1,
       name: "Abadan Haly Dükany",
@@ -234,26 +248,15 @@ export default function Hero({ onNavigate }: HeroProps) {
       }
     );
   };
-  // Show connection status
-  const isSupabaseConnected = !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
+
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
     try {
-      const messageData = {
-        name: contactForm.name,
-        email: contactForm.email,
-        message: contactForm.message,
-        user_id: null
-      };
-
-      const { error } = await db.createContactMessage(messageData);
-      
-      if (error) {
-        throw error;
-      }
+      // Mock contact form submission
+      console.log('Contact form submitted:', contactForm);
       
       setContactForm({ name: '', email: '', message: '' });
       alert('Thank you for your message! We\'ll get back to you soon.');
