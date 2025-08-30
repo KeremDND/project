@@ -22,5 +22,22 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Build outputs
+public/cdn/
+public/data/
+dist/
+
+# Environment files
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
 .vercel
+
+# Large image files (keep source images, exclude optimized)
+# public/cdn/
+# public/data/
