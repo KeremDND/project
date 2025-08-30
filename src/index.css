@@ -98,6 +98,58 @@ section {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Chip and Button styles for ColorFilterGrid */
+.chip {
+  padding: 0.4rem 0.7rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.chip:hover {
+  border-color: #0F3B2F;
+  background: #f8fafc;
+}
+
+.chip--active {
+  border-color: #0F3B2F;
+  color: #0F3B2F;
+  background: #ECF4F2;
+}
+
+.btn {
+  padding: 0.45rem 0.7rem;
+  border-radius: 0.7rem;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: #374151;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.btn--sm {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.6rem;
+}
+
+.btn--ghost {
+  background: #fff;
+  color: #6b7280;
+}
+
+.btn--ghost:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
 .hover-lift:hover {
   transform: translateY(-4px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Sitemap: https://abadanhaly.com/sitemap.xml
+Sitemap: https://abadanhaly.com/sitemap-images.xml
+

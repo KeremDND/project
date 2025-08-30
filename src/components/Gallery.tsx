@@ -58,45 +58,41 @@ export default function Gallery() {
   ];
 
   // Use optimized carpet data from manifest
-  const products = carpets.map(carpet => ({
-    id: carpet.id,
-    name: carpet.name,
-    sku: carpet.sku,
-    src: carpet.srcset.jpg[carpet.srcset.jpg.length - 1]?.src || '', // Use highest quality fallback for compatibility
-    category: carpet.style.toLowerCase(),
-    colors: [carpet.color.toLowerCase().replace(/\s+/g, '')],
-    dominantColor: carpet.color.toLowerCase().replace(/\s+/g, ''),
-    type: carpet.style,
-    description: `Premium ${carpet.style.toLowerCase()} carpet in ${carpet.color.toLowerCase()}`,
-    material: carpet.material,
-    isFeatured: carpet.isFeatured,
-    glbUrl: carpet.glbUrl,
-    usdzUrl: carpet.usdzUrl,
-    posterUrl: carpet.posterUrl,
-    optimizedData: carpet // Store full optimized data for OptimizedCarpetPicture
-  }));
+  const products = carpets.map(carpet => {
+    // Extract SKU from name (e.g., "Abadan Haly Gunes Cream 2004 Carpet" -> "2004")
+    const skuMatch = carpet.name.match(/\b(\d{4})\b/);
+    const sku = skuMatch ? skuMatch[1] : carpet.id;
+    
+    // Determine style from name
+    const name = carpet.name.toLowerCase();
+    let style = 'Traditional'; // Default
+    if (name.includes('modern')) style = 'Modern';
+    if (name.includes('classic')) style = 'Classic';
+    
+    // Determine if featured (you can customize this logic)
+    const isFeatured = carpet.name.includes('Nusay') || carpet.name.includes('Premium');
+    
+    return {
+      id: carpet.id,
+      name: carpet.name,
+      sku: sku,
+      src: carpet.srcset.jpg[carpet.srcset.jpg.length - 1]?.src || '', // Use highest quality fallback for compatibility
+      category: style.toLowerCase(),
+      colors: [carpet.color.toLowerCase().replace(/\s+/g, '')],
+      dominantColor: carpet.color.toLowerCase().replace(/\s+/g, ''),
+      type: style,
+      description: `Premium ${style.toLowerCase()} carpet in ${carpet.color.toLowerCase()}`,
+      material: 'Premium Polypropylene',
+      isFeatured: isFeatured,
+      glbUrl: carpet.glbUrl,
+      usdzUrl: carpet.usdzUrl,
+      posterUrl: carpet.posterUrl,
+      optimizedData: carpet // Store full optimized data for OptimizedCarpetPicture
+    };
+  });
 
-  // Add the new Nusay carpet as featured product
-  const nusayProduct = {
-    id: 'nusay-cream-2004',
-    name: 'Nusay Premium Collection',
-    sku: '2004',
-    src: 'https://images.pexels.com/photos/6782567/pexels-photo-6782567.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-    category: 'traditional',
-    colors: ['cream'],
-    dominantColor: 'cream',
-    type: 'Traditional',
-    description: 'Premium traditional carpet in cream',
-    material: 'Premium Polypropylene',
-    isFeatured: true,
-    glbUrl: null,
-    usdzUrl: null,
-    posterUrl: null,
-    optimizedData: null
-  };
-
-  // Combine with existing products, putting Nusay first
-  const allProducts = [nusayProduct, ...products];
+  // Use all products from manifest
+  const allProducts = products;
 
   const aiTranslations = {
     tm: {
