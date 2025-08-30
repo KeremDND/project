@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX, ExternalLink, X } from 'lucide-react';
 
 const gradientText = "bg-clip-text text-transparent bg-[linear-gradient(90deg,#0F3B2F,#1F6F5B,#38A38A)]";

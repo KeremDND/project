@@ -320,7 +320,7 @@ export default function Hero({ onNavigate }: HeroProps) {
             <div className="order-1 lg:order-2 space-y-8 text-center lg:text-left">
               {/* Main Heading */}
               <h1 className="text-5xl lg:text-6xl font-bold text-[#1A1A1A] leading-tight mb-4">
-                Abadan Haly - Owadan Haly
+                Abadan Haly Owadan Haly
               </h1>
               
               {/* Subhead */}

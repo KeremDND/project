@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { Menu, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 interface HeaderProps {
   currentPage: string;
@@ -9,21 +10,13 @@ interface HeaderProps {
 
 export default function Header({ currentPage, onNavigate }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLangOpen, setIsLangOpen] = useState(false);
-  const { language, setLanguage, t } = useLanguage();
+  const { t } = useTranslation();
 
   const navigationItems = [
     { id: 'home', label: t('nav.home'), page: 'home' as const },
     { id: 'gallery', label: t('nav.gallery'), page: 'gallery' as const },
-    { id: 'collaboration', label: t('nav.collaboration'), page: 'collaboration' as const },
-   
+    { id: 'collaboration', label: t('nav.collab'), page: 'collaboration' as const },
     { id: 'about', label: t('nav.about'), page: 'about' as const }
-  ];
-
-  const languages = [
-    { code: 'tm', name: 'Türkmen' },
-    { code: 'ru', name: 'Русский' },
-    { code: 'en', name: 'English' }
   ];
 
   const handleNavigation = (page: 'home' | 'gallery' | 'collaboration' | 'about') => {
@@ -67,42 +60,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4">
-            
-            {/* Language Switcher */}
-            <div className="relative">
-              <button
-                onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center space-x-2 text-gray-700 hover:text-emerald-800 transition-colors px-3 py-2 rounded-xl hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
-                aria-expanded={isLangOpen}
-                aria-haspopup="true"
-                aria-label="Select language"
-              >
-                <Globe className="w-4 h-4" />
-                <span className="text-sm font-medium uppercase">
-                  {language}
-                </span>
-              </button>
-              
-              {isLangOpen && (
-                <div className="absolute right-0 mt-2 w-40 glassmorphism-dropdown rounded-2xl shadow-lg py-2 z-20" role="menu" aria-orientation="vertical">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => {
-                        setLanguage(lang.code as any);
-                        setIsLangOpen(false);
-                      }}
-                      className={`w-full text-left px-4 py-2 text-sm hover:bg-white/20 transition-colors focus:outline-none focus:bg-white/20 ${
-                        language === lang.code ? 'text-emerald-800 font-medium' : 'text-gray-700'
-                      }`}
-                      role="menuitem"
-                    >
-                      {lang.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            <LanguageSwitcher />
 
             {/* Mobile Menu Button */}
             <button
@@ -138,24 +96,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
               
               {/* Mobile Language Switcher */}
               <div className="pt-3 border-t border-white/20">
-                <div className="flex space-x-2">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => {
-                        setLanguage(lang.code as any);
-                        setIsMenuOpen(false);
-                      }}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                        language === lang.code 
-                          ? 'text-emerald-800 bg-white/40' 
-                          : 'text-gray-700 hover:text-emerald-800 hover:bg-white/30'
-                      }`}
-                    >
-                      {lang.name}
-                    </button>
-                  ))}
-                </div>
+                <LanguageSwitcher />
               </div>
             </div>
           </div>

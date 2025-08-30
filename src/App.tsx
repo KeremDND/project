@@ -1,8 +1,8 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { LanguageProvider } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
+import LanguageToast from './components/LanguageToast';
 
 // Lazy load components
 const Hero = lazy(() => import('./components/Hero'));
@@ -91,18 +91,17 @@ function App() {
 
   return (
     <AuthProvider>
-      <LanguageProvider>
-        <div className="min-h-screen bg-white">
-          <a href="#main-content" className="skip-link" onClick={skipToMain}>
-            Skip to main content
-          </a>
-          <Header currentPage={currentPage} onNavigate={navigate} />
-          <main id="main-content" tabIndex={-1}>
-            {renderPage()}
-          </main>
-          <Footer onNavigate={navigate} />
-        </div>
-      </LanguageProvider>
+      <div className="min-h-screen bg-white">
+        <a href="#main-content" className="skip-link" onClick={skipToMain}>
+          Skip to main content
+        </a>
+        <Header currentPage={currentPage} onNavigate={navigate} />
+        <main id="main-content" tabIndex={-1}>
+          {renderPage()}
+        </main>
+        <Footer onNavigate={navigate} />
+        <LanguageToast />
+      </div>
     </AuthProvider>
   );
 }

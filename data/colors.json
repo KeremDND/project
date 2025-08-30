@@ -1,0 +1,32 @@
+{
+  "Grey": {
+    "tk": "Çal",
+    "ru": "Серый",
+    "en": "Grey",
+    "de": "Grau"
+  },
+  "Dark Grey": {
+    "tk": "Garaçal",
+    "ru": "Тёмно-серый",
+    "en": "Dark Grey",
+    "de": "Dunkelgrau"
+  },
+  "Cream": {
+    "tk": "Krem",
+    "ru": "Кремовый",
+    "en": "Cream",
+    "de": "Creme"
+  },
+  "Red": {
+    "tk": "Gyzyl",
+    "ru": "Красный",
+    "en": "Red",
+    "de": "Rot"
+  },
+  "Green": {
+    "tk": "Ýaşyl",
+    "ru": "Зелёный",
+    "en": "Green",
+    "de": "Grün"
+  }
+}
