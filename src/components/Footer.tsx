@@ -51,9 +51,8 @@ export default function Footer({ onNavigate }: FooterProps) {
             <ul className="space-y-3">
               {[
                 { label: 'Home', page: 'home' as const },
-                { label: 'Shop', page: 'shop' as const },
                 { label: 'Gallery', page: 'gallery' as const },
-                
+                { label: 'Collaboration', page: 'collaboration' as const },
                 { label: 'About', page: 'about' as const }
               ].map((link) => (
                 <li key={link.page}>

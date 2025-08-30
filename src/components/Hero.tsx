@@ -317,21 +317,21 @@ export default function Hero({ onNavigate }: HeroProps) {
 
             {/* Content - Right (Desktop) / Top (Mobile) */}
             <div className="order-1 lg:order-2 space-y-8 text-center lg:text-left">
-              {/* Brand Line */}
-              <div className="font-hand text-2xl text-[#0F3B2F] mb-2">
-                Abadan Haly - Owadan Haly
-              </div>
-              
               {/* Main Heading */}
               <h1 className="text-5xl lg:text-6xl font-bold text-[#1A1A1A] leading-tight mb-4">
-                #1 Turkmenistan Carpet Manufacturing Company
+                Abadan Haly - Owadan Haly
               </h1>
               
               {/* Subhead */}
-              <p className="text-lg text-gray-600 leading-relaxed max-w-lg">
+              <p className="text-lg text-gray-600 leading-relaxed max-w-lg mb-4">
                 Premium quality carpets crafted with modern technology and traditional expertise. 
                 Delivering excellence since 2016.
               </p>
+              
+              {/* Dynamic Green Highlight */}
+              <div className="inline-block bg-gradient-to-r from-[#0F3B2F] to-emerald-600 text-white px-6 py-3 rounded-full font-semibold text-lg shadow-lg transform hover:scale-105 transition-all duration-300 mb-6">
+                #1 Turkmenistan Carpet Manufacturing Company
+              </div>
               
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4">
