@@ -1,0 +1,46 @@
+{
+  "instagram": {
+    "handle": "@abadan_haly",
+    "profileUrl": "https://www.instagram.com/abadan_haly/",
+    "followers": 0,
+    "videos": [
+      { 
+        "mp4": "/social/ig/reel-1.mp4", 
+        "poster": "/social/ig/reel-1.jpg", 
+        "permalink": "https://www.instagram.com/reel/DJ8Qdpvi7Aq/?igsh=cWNjNXE0MDN3bGVr" 
+      },
+      { 
+        "mp4": "/social/ig/reel-2.mp4", 
+        "poster": "/social/ig/reel-2.jpg", 
+        "permalink": "https://www.instagram.com/reel/DN0LFhL2IUc/?igsh=cjZqcHBpaGwyNmF0" 
+      },
+      { 
+        "mp4": "/social/ig/reel-3.mp4", 
+        "poster": "/social/ig/reel-3.jpg", 
+        "permalink": "https://www.instagram.com/reel/DN9vyIiCCHE/?igsh=Zmt5NDd2NnMzZG5z" 
+      }
+    ]
+  },
+  "tiktok": {
+    "handle": "@abadan_haly",
+    "profileUrl": "https://www.tiktok.com/@abadan_haly",
+    "followers": 0,
+    "videos": [
+      { 
+        "mp4": "/social/tt/tiktok-1.mp4", 
+        "poster": "/social/tt/tiktok-1.jpg", 
+        "permalink": "https://www.tiktok.com/@abadan_haly/video/7362584957337832722?is_from_webapp=1&sender_device=pc" 
+      },
+      { 
+        "mp4": "/social/tt/tiktok-2.mp4", 
+        "poster": "/social/tt/tiktok-2.jpg", 
+        "permalink": "https://www.tiktok.com/@abadan_haly/video/7345535164015037704?is_from_webapp=1&sender_device=pc" 
+      },
+      { 
+        "mp4": "/social/tt/tiktok-3.mp4", 
+        "poster": "/social/tt/tiktok-3.jpg", 
+        "permalink": "https://www.tiktok.com/@abadan_haly/video/7536206909553052946?is_from_webapp=1&sender_device=pc" 
+      }
+    ]
+  }
+}

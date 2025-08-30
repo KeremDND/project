@@ -3,8 +3,9 @@ import { ArrowRight, Cuboid as Cube, MapPin, Mail, Phone, Send, Target, Truck, R
 import { useLanguage } from '../contexts/LanguageContext';
 
 
-// Lazy load 3D viewer
+// Lazy load components
 const Product3DViewer = lazy(() => import('./Product3DViewer'));
+const SocialShowcase = lazy(() => import('./SocialShowcase'));
 
 interface HeroProps {
   onNavigate: (page: 'home' | 'shop' | 'product' | 'gallery' | 'about' | 'support') => void;
@@ -516,6 +517,11 @@ export default function Hero({ onNavigate }: HeroProps) {
           </div>
         </div>
       </section>
+
+      {/* Social Showcase */}
+      <Suspense fallback={<div className="py-20 bg-white"><div className="max-w-7xl mx-auto px-4 text-center">Loading social content...</div></div>}>
+        <SocialShowcase />
+      </Suspense>
 
       {/* Certifications & Trust */}
       <section className="py-20 bg-[#F7F7F8]">

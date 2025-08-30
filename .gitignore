@@ -41,3 +41,6 @@ dist/
 # Large image files (keep source images, exclude optimized)
 # public/cdn/
 # public/data/
+
+# Social media assets (large video files)
+public/social/
