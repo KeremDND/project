@@ -70,15 +70,15 @@ for (const file of files) {
 
     const avifPath = makePath(w, 'avif');
     await common.avif({ quality: 50, effort: 5, chromaSubsampling: '4:4:4' }).toFile(avifPath);
-    avif.push({ src: `/${avifPath.replace(/\\\\/g,'/')}`, w });
+    avif.push({ src: `/cdn/Halylar/${color}/${toSlug(base)}-${w}.avif`, w });
 
     const webpPath = makePath(w, 'webp');
     await common.webp({ quality: 80, effort: 5 }).toFile(webpPath);
-    webp.push({ src: `/${webpPath.replace(/\\\\/g,'/')}`, w });
+    webp.push({ src: `/cdn/Halylar/${color}/${toSlug(base)}-${w}.webp`, w });
 
     const jpgPath = makePath(w, 'jpg');
     await common.jpeg({ quality: 82, progressive: true, mozjpeg: true }).toFile(jpgPath);
-    jpg.push({ src: `/${jpgPath.replace(/\\\\/g,'/')}`, w });
+    jpg.push({ src: `/cdn/Halylar/${color}/${toSlug(base)}-${w}.jpg`, w });
   }
 
   // Dominant color (for swatches)
