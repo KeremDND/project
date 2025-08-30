@@ -12,6 +12,11 @@ export const DEFAULT_LOCALE: SupportedLocale = 'tk';
 
 // Get language from cookie or browser
 const getInitialLanguage = (): SupportedLocale => {
+  // Check if we're in browser environment
+  if (typeof window === 'undefined') {
+    return DEFAULT_LOCALE;
+  }
+
   // Check cookie first
   const cookieLang = document.cookie
     .split('; ')
@@ -63,7 +68,6 @@ i18n
       order: ['cookie', 'navigator'],
       lookupCookie: 'lang',
       caches: ['cookie'],
-      cookieExpirationDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
     },
     
     // Interpolation
@@ -77,22 +81,24 @@ i18n
     },
     
     // Debug mode (disable in production)
-    debug: process.env.NODE_ENV === 'development',
+    debug: false,
   });
 
-// Set initial language cookie if not present
-const currentLang = i18n.language as SupportedLocale;
-if (!document.cookie.includes('lang=')) {
-  setLanguageCookie(currentLang);
-  
-  // Show language selection toast for first-time visitors
-  if (currentLang === DEFAULT_LOCALE) {
-    setTimeout(() => {
-      const event = new CustomEvent('showLanguageToast', {
-        detail: { language: currentLang }
-      });
-      window.dispatchEvent(event);
-    }, 1000);
+// Set initial language cookie if not present (only after DOM is ready)
+if (typeof window !== 'undefined') {
+  const currentLang = i18n.language as SupportedLocale;
+  if (!document.cookie.includes('lang=')) {
+    setLanguageCookie(currentLang);
+    
+    // Show language selection toast for first-time visitors
+    if (currentLang === DEFAULT_LOCALE) {
+      setTimeout(() => {
+        const event = new CustomEvent('showLanguageToast', {
+          detail: { language: currentLang }
+        });
+        window.dispatchEvent(event);
+      }, 1000);
+    }
   }
 }
 

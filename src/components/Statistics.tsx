@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 export default function Statistics() {
-  const { t } = useLanguage();
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 

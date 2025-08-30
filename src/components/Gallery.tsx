@@ -1,6 +1,6 @@
 import React, { useState, lazy, Suspense, useEffect, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight, Filter, Cuboid as Cube, Award, Shield, Leaf, ZoomIn, ZoomOut, RotateCcw, Search, Sparkles, Send, Bot, Users, Factory, Globe, MessageCircle, Lightbulb, Eye, SlidersHorizontal, Grid, List, ArrowDown } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useTranslation } from 'react-i18next';
 import { useCarpetManifest } from '../hooks/useCarpetManifest';
 import { OptimizedCarpetPicture } from './OptimizedCarpetPicture';
 
@@ -8,7 +8,8 @@ import { OptimizedCarpetPicture } from './OptimizedCarpetPicture';
 const Product3DViewer = lazy(() => import('./Product3DViewer'));
 
 export default function Gallery() {
-  const { t, language } = useLanguage();
+  const { t, i18n } = useTranslation();
+const language = i18n.language;
   const { carpets, colors: availableColors, styles: availableStyles, loading: manifestLoading, error: manifestError } = useCarpetManifest();
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [activeFilter, setActiveFilter] = useState('all');

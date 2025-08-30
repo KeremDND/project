@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Phone, Clock, Navigation, Star, Award, Users, Car } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 interface Store {
   id: number;
@@ -25,7 +25,7 @@ interface Store {
 }
 
 export default function StoreLocator() {
-  const { t } = useLanguage();
+  const { t } = useTranslation();
   const [userLocation, setUserLocation] = useState<{lat: number, lng: number} | null>(null);
   const [nearestStore, setNearestStore] = useState<Store | null>(null);
   const [locationError, setLocationError] = useState<string>('');

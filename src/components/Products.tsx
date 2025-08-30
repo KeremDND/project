@@ -1,12 +1,12 @@
 import React, { useState, lazy, Suspense } from 'react';
 import { Filter, Grid, List, Cuboid as Cube } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 // Lazy load 3D viewer
 const Product3DViewer = lazy(() => import('./Product3DViewer'));
 
 export default function Products() {
-  const { t } = useLanguage();
+  const { t } = useTranslation();
   const [activeFilter, setActiveFilter] = useState('all');
   const [viewMode, setViewMode] = useState('grid');
   const [selectedProduct, setSelectedProduct] = useState<any>(null);

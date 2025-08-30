@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, MessageSquare, HelpCircle, ChevronDown } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 export default function Contact() {
-  const { t } = useLanguage();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',

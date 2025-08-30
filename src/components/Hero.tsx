@@ -1,6 +1,6 @@
 import React, { useState, useRef, lazy, Suspense } from 'react';
 import { ArrowRight, Cuboid as Cube, MapPin, Mail, Phone, Send, Target, Truck, Ruler, Palette, Home, Headphones as HeadphonesIcon, Factory, Globe, Award, Bot, Users, Star, Leaf, Shield, Clock, Car, Eye, Download, X } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 
 // Lazy load components
@@ -26,7 +26,7 @@ interface Store {
 }
 
 export default function Hero({ onNavigate }: HeroProps) {
-  const { t } = useLanguage();
+  const { t } = useTranslation();
   const [show3DViewer, setShow3DViewer] = useState(false);
   const [selectedCertificate, setSelectedCertificate] = useState<number | null>(null);
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });

@@ -1,9 +1,9 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 export default function Collections() {
-  const { t } = useLanguage();
+  const { t } = useTranslation();
 
   const collections = [
     {
