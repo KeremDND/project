@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import React, { useState, useRef, lazy, Suspense } from 'react';
 import { ArrowRight, Cuboid as Cube, MapPin, Mail, Phone, Send, Target, Truck, Ruler, Palette, Home, Headphones as HeadphonesIcon, Factory, Globe, Award, Bot, Users, Star, Leaf, Shield, Clock, Car, Eye, Download, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useCarpetManifest } from '../hooks/useCarpetManifest';
-import { OptimizedCarpetPicture } from './OptimizedCarpetPicture';
 
 
 // Lazy load 3D viewer
@@ -28,9 +26,7 @@ interface Store {
 
 export default function Hero({ onNavigate }: HeroProps) {
   const { t } = useLanguage();
-  const { carpets } = useCarpetManifest();
   const [show3DViewer, setShow3DViewer] = useState(false);
-  const [selected3DProduct, setSelected3DProduct] = useState<any>(null);
   const [selectedCertificate, setSelectedCertificate] = useState<number | null>(null);
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -417,7 +413,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {storesWithDistance.map((store, index) => (
+            {storesWithDistance.map((store) => (
               <div
                 key={store.id}
                 className={`relative bg-white border rounded-2xl p-6 transition-all duration-300 ${
