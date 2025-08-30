@@ -318,20 +318,19 @@ export default function Hero({ onNavigate }: HeroProps) {
             {/* Content - Right (Desktop) / Top (Mobile) */}
             <div className="order-1 lg:order-2 space-y-8 text-center lg:text-left">
               {/* Brand Line */}
-              <div className="font-hand text-2xl text-[#0F3B2F]">
-                Abadan Haly, Owadan Haly
+              <div className="font-hand text-2xl text-[#0F3B2F] mb-2">
+                Abadan Haly - Owadan Haly
               </div>
               
               {/* Main Heading */}
-              <h1 className="text-5xl lg:text-6xl font-bold text-[#1A1A1A] leading-tight">
-                Crafted at scale.<br />
-                Built for real homes.
+              <h1 className="text-5xl lg:text-6xl font-bold text-[#1A1A1A] leading-tight mb-4">
+                #1 Turkmenistan Carpet Manufacturing Company
               </h1>
               
               {/* Subhead */}
               <p className="text-lg text-gray-600 leading-relaxed max-w-lg">
-                24/7 Vandewiele production with in-house Neumag polypropylene yarn. 
-                Modern, color-fast carpets—reliable since 2016.
+                Premium quality carpets crafted with modern technology and traditional expertise. 
+                Delivering excellence since 2016.
               </p>
               
               {/* CTAs */}

@@ -10,7 +10,7 @@ const Gallery = lazy(() => import('./components/Gallery'));
 const Collaboration = lazy(() => import('./components/Collaboration'));
 const About = lazy(() => import('./components/About'));
 
-type Page = 'home' | 'gallery' | 'collaboration' | 'about';
+type Page = 'home' | 'gallery' | 'collaboration' | 'about' | 'shop' | 'product' | 'support' | 'certificates';
 
 const LoadingSpinner = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -37,6 +37,8 @@ function App() {
       else if (path === '/gallery') setCurrentPage('gallery');
       else if (path === '/collaboration') setCurrentPage('collaboration');
       else if (path === '/about') setCurrentPage('about');
+      // Scroll to top when using browser back/forward
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -47,6 +49,8 @@ function App() {
     setCurrentPage(page);
     const path = page === 'home' ? '/' : `/${page}`;
     window.history.pushState({}, '', path);
+    // Scroll to top when navigating to a new page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const renderPage = () => {
