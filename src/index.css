@@ -29,6 +29,14 @@
   .animate-fade-in-up {
     animation: fadeInUp 0.6s ease-out;
   }
+  
+  /* Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in,
+    .animate-fade-in-up {
+      animation: none;
+    }
+  }
 }
 
 @keyframes fadeIn {

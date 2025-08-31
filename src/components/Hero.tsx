@@ -38,7 +38,7 @@ export default function Hero({ onNavigate }: HeroProps) {
   const heroRef = useRef<HTMLElement>(null);
   const storesRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
-  // Store data
+  // Store data - these are location-specific and don't need translation
   const stores: Store[] = [
     {
       id: 1,
@@ -72,7 +72,6 @@ export default function Hero({ onNavigate }: HeroProps) {
       lat: 37.9924304,
       lng: 58.3146144,
       phone: "+993 71 817730",
-  
       hours: "09:00–18:00, daily",
       mapUrl: "https://maps.app.goo.gl/sZUErPkGwiSg27PM9"
     }
@@ -81,33 +80,33 @@ export default function Hero({ onNavigate }: HeroProps) {
   // Services data
   const services = [
     {
-      title: "Free in-home measuring",
-      description: "Accurate room sizing to select the right carpet.",
+      title: t('services.free.measure'),
+      description: t('services.free.measure.desc'),
       icon: <Target className="w-5 h-5 text-[#0F3B2F]" />
     },
     {
-      title: "Free delivery",
-      description: "Safe packaging and scheduled delivery windows.",
+      title: t('services.free.delivery'),
+      description: t('services.free.delivery.desc'),
       icon: <Truck className="w-5 h-5 text-[#0F3B2F]" />
     },
     {
-      title: "Custom sizes",
-      description: "Order made-to-measure dimensions.",
+      title: t('services.custom.sizes'),
+      description: t('services.custom.sizes.desc'),
       icon: <Ruler className="w-5 h-5 text-[#0F3B2F]" />
     },
     {
-      title: "Custom designs",
-      description: "Heritage motifs or modern palettes, tailored to your brief.",
+      title: t('services.custom.designs'),
+      description: t('services.custom.designs.desc'),
       icon: <Palette className="w-5 h-5 text-[#0F3B2F]" />
     },
     {
-      title: "Installation service",
-      description: "Professional carpet installation and placement.",
+      title: t('services.installation'),
+      description: t('services.installation.desc'),
       icon: <Home className="w-5 h-5 text-[#0F3B2F]" />
     },
     {
-      title: "Care & support",
-      description: "Care guides and responsive customer service.",
+      title: t('services.care.support'),
+      description: t('services.care.support.desc'),
       icon: <HeadphonesIcon className="w-5 h-5 text-[#0F3B2F]" />
     }
   ];
@@ -116,32 +115,32 @@ export default function Hero({ onNavigate }: HeroProps) {
   const milestones = [
     {
       year: '2016',
-      title: 'Company founded',
-      description: '3 Vandewiele machines.',
+      title: t('milestones.founded'),
+      description: t('milestones.founded.desc'),
       icon: <Factory className="w-5 h-5" />
     },
     {
       year: '2017',
-      title: 'First exports begin',
-      description: 'International shipments start.',
+      title: t('milestones.exports'),
+      description: t('milestones.exports.desc'),
       icon: <Globe className="w-5 h-5" />
     },
     {
       year: '2020',
-      title: '3,000,000 m² carpets & items produced',
-      description: 'National record.',
+      title: t('milestones.production'),
+      description: t('milestones.production.desc'),
       icon: <Award className="w-5 h-5" />
     },
     {
       year: '2024',
-      title: 'AI-assisted design workflow',
-      description: 'Technology integration.',
+      title: t('milestones.ai'),
+      description: t('milestones.ai.desc'),
       icon: <Bot className="w-5 h-5" />
     },
     {
       year: '2025',
-      title: '8 Vandewiele looms, 600+ employees',
-      description: '24/7 operations.',
+      title: t('milestones.employees'),
+      description: t('milestones.employees.desc'),
       icon: <Users className="w-5 h-5" />
     }
   ];
@@ -150,24 +149,24 @@ export default function Hero({ onNavigate }: HeroProps) {
   const certificates = [
     {
       name: 'ISO 9001',
-      title: 'Quality Management',
-      description: 'Consistent quality in manufacturing processes',
+      title: t('certs.quality'),
+      description: t('certs.quality.desc'),
       icon: <Star className="w-5 h-5" />,
       color: 'text-blue-600',
       bgColor: 'bg-blue-50'
     },
     {
       name: 'ISO 14001',
-      title: 'Environmental Management',
-      description: 'Environmental responsibility and sustainability',
+      title: t('certs.environmental'),
+      description: t('certs.environmental.desc'),
       icon: <Leaf className="w-5 h-5" />,
       color: 'text-green-600',
       bgColor: 'bg-green-50'
     },
     {
       name: 'ISO 45001',
-      title: 'Occupational Health & Safety',
-      description: 'Workplace safety and employee well-being',
+      title: t('certs.safety'),
+      description: t('certs.safety.desc'),
       icon: <Shield className="w-5 h-5" />,
       color: 'text-red-600',
       bgColor: 'bg-red-50'
@@ -199,7 +198,7 @@ export default function Hero({ onNavigate }: HeroProps) {
     setLocationError('');
 
     if (!navigator.geolocation) {
-      setLocationError('Geolocation is not supported by this browser.');
+      setLocationError(t('stores.location.error'));
       setIsLoadingLocation(false);
       return;
     }
@@ -223,16 +222,16 @@ export default function Hero({ onNavigate }: HeroProps) {
         setIsLoadingLocation(false);
       },
       (error) => {
-        let errorMessage = 'Unable to retrieve your location.';
+        let errorMessage = t('stores.location.retrieve');
         switch(error.code) {
           case error.PERMISSION_DENIED:
-            errorMessage = 'Location access denied. Please enable location services.';
+            errorMessage = t('stores.location.denied');
             break;
           case error.POSITION_UNAVAILABLE:
-            errorMessage = 'Location information is unavailable.';
+            errorMessage = t('stores.location.unavailable');
             break;
           case error.TIMEOUT:
-            errorMessage = 'Location request timed out.';
+            errorMessage = t('stores.location.timeout');
             break;
         }
         setLocationError(errorMessage);
@@ -256,10 +255,10 @@ export default function Hero({ onNavigate }: HeroProps) {
       console.log('Contact form submitted:', contactForm);
       
       setContactForm({ name: '', email: '', message: '' });
-      alert('Thank you for your message! We\'ll get back to you soon.');
+      alert(t('hero.contact.thankyou'));
     } catch (error) {
       console.error('Error sending message:', error);
-      alert('Sorry, there was an error sending your message. Please try again.');
+      alert(t('hero.contact.error'));
     } finally {
       setIsSubmitting(false);
     }
@@ -283,90 +282,82 @@ export default function Hero({ onNavigate }: HeroProps) {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section - Minimal with Semi-transparent Overlay */}
       <section 
         ref={heroRef}
-        className="relative min-h-screen bg-white flex items-center pt-24"
+        className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16 w-full">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            
-            {/* Media - Left (Desktop) / Bottom (Mobile) */}
-            <div 
-              className="order-2 lg:order-1 flex justify-center"
-            >
-              <div className="relative max-w-lg w-full">
-                {/* Media Container */}
-                <div 
-                  className="relative bg-white rounded-2xl shadow-lg overflow-hidden"
-                  style={{ aspectRatio: '1440/2020' }}
-                >
-                  <img
-                    src={HERO_IMG}
-                    alt="Abadan Haly — Nusay Cream 2048, traditional carpet"
-                    className="w-full h-full object-contain p-8"
-                    loading="eager"
-                    fetchPriority="high"
-                    onError={(e) => {
-                      // Fallback to Pexels image if local image fails
-                      e.currentTarget.src = "https://images.pexels.com/photos/6782567/pexels-photo-6782567.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop";
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
+        {/* Background Image */}
+        <picture>
+          <source
+            type="image/avif"
+            srcSet="/Images/Background_Image.jpg"
+          />
+          <source
+            type="image/webp"
+            srcSet="/Images/Background_Image.jpg"
+          />
+          <img
+            src="/Images/Background_Image.jpg"
+            alt="Abadan Haly interior living room with modern carpet"
+            className="absolute inset-0 h-full w-full object-cover"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            onLoad={() => console.log('Background image loaded successfully')}
+            onError={(e) => {
+              console.log('Image failed to load, trying fallback');
+              e.currentTarget.src = "/images/page-images/abadan-haly-home-page-background.jpg";
+            }}
+          />
+        </picture>
 
-            {/* Content - Right (Desktop) / Top (Mobile) */}
-            <div className="order-1 lg:order-2 space-y-8 text-center lg:text-left">
-              {/* Main Heading */}
-              <h1 className="text-5xl lg:text-6xl font-bold text-[#1A1A1A] leading-tight mb-4">
+        {/* Semi-transparent overlay panel (like the reference image) */}
+        <div className="absolute inset-0 flex items-center justify-start px-4 lg:px-8">
+          <div className="relative z-10 max-w-2xl">
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-xl border border-white/20">
+              <h1
+                className="mb-6 text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0F3B2F] leading-tight"
+                style={{ fontFamily: '"Dancing Script", ui-serif, system-ui' }}
+              >
                 Abadan Haly Owadan Haly
               </h1>
               
-              {/* Subhead */}
-              <p className="text-lg text-gray-600 leading-relaxed max-w-lg mb-4">
+              <p className="text-lg lg:text-xl text-gray-700 mb-8 leading-relaxed">
                 Premium quality carpets crafted with modern technology and traditional expertise. 
                 Delivering excellence since 2016.
               </p>
-              
-              {/* Dynamic Green Highlight */}
-              <div className="inline-block bg-gradient-to-r from-[#0F3B2F] to-emerald-600 text-white px-6 py-3 rounded-full font-semibold text-lg shadow-lg transform hover:scale-105 transition-all duration-300 mb-6">
-                #1 Turkmenistan Carpet Manufacturing Company
-              </div>
-              
-              {/* CTAs */}
+
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   onClick={() => onNavigate('gallery')}
-                  className="bg-[#0F3B2F] text-white px-8 py-3 rounded-2xl font-medium hover:bg-[#0F3B2F]/90 transition-all duration-180 hover:scale-105 flex items-center justify-center gap-2"
+                  className="inline-flex items-center justify-center rounded-xl bg-[#0F3B2F] px-8 py-4 text-base font-medium text-white shadow-lg transition-all duration-200 hover:bg-[#0F3B2F]/90 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F3B2F]/40"
+                  aria-label="Explore Gallery"
                 >
-                  Explore Carpets
-                  <ArrowRight className="w-4 h-4" />
+                  Explore Gallery
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </button>
+                
                 <button
                   onClick={() => setShow3DViewer(true)}
-                  className="border border-gray-200 text-[#1A1A1A] px-8 py-3 rounded-2xl font-medium hover:bg-gray-50 transition-all duration-180 flex items-center justify-center gap-2"
+                  className="inline-flex items-center justify-center rounded-xl border-2 border-[#0F3B2F] px-8 py-4 text-base font-medium text-[#0F3B2F] bg-white/80 backdrop-blur-sm transition-all duration-200 hover:bg-[#0F3B2F] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F3B2F]/40"
+                  aria-label="View in 3D"
                 >
-                  <Cube className="w-4 h-4" />
-                  View in 3D Viewer
+                  <Cube className="w-4 h-4 mr-2" />
+                  View in 3D
                 </button>
-              </div>
-
-              {/* Trust Indicators */}
-              <div className="pt-4">
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-gray-500">
-                  <span>400+ designs</span>
-                  <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                  <span>8+ years</span>
-                  <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                  <span>3M m² (2020)</span>
-                  <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                  <span>ISO 9001/14001/45001</span>
-                </div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Reduced-motion support */}
+        <style>{`
+          @media (prefers-reduced-motion: reduce) {
+            .animate-[fadeIn_.2s_ease-out] { animation: none; }
+          }
+          @keyframes fadeIn { from { opacity: 0; transform: translateY(6px) scale(0.995); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        `}</style>
       </section>
 
 
@@ -382,10 +373,10 @@ export default function Hero({ onNavigate }: HeroProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#1A1A1A] mb-4">
-              Find your nearest store
+              {t('stores.title')}
             </h2>
             <p className="text-gray-600 mb-6">
-              We'll show distance in kilometers and the fastest way to visit.
+              {t('stores.description')}
             </p>
             <button
               onClick={getUserLocation}
@@ -395,12 +386,12 @@ export default function Hero({ onNavigate }: HeroProps) {
               {isLoadingLocation ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Finding...
+                  {t('stores.finding')}
                 </>
               ) : (
                 <>
                   <MapPin className="w-4 h-4" />
-                  Use my location
+                  {t('stores.useLocation')}
                 </>
               )}
             </button>
@@ -408,7 +399,7 @@ export default function Hero({ onNavigate }: HeroProps) {
               <p className="text-red-600 text-sm mt-2">{locationError}</p>
             )}
             <p className="text-xs text-gray-500 mt-2">
-              We'll use your location to find the closest store
+              {t('stores.location.use')}
             </p>
           </div>
 
@@ -424,7 +415,7 @@ export default function Hero({ onNavigate }: HeroProps) {
               >
                 {nearestStore?.id === store.id && (
                   <div className="absolute -top-2 left-6 bg-gradient-to-r from-[#0F3B2F] to-emerald-700 text-white px-4 py-1 rounded-full text-xs font-semibold shadow-lg">
-                    Nearest
+                    {t('stores.nearest')}
                   </div>
                 )}
                 
@@ -434,7 +425,7 @@ export default function Hero({ onNavigate }: HeroProps) {
                 
                 {store.distance && (
                   <div className="text-[#0F3B2F] font-medium mb-3">
-                    {store.distance} km away
+                    {store.distance} {t('stores.km.away')}
                   </div>
                 )}
                 
@@ -463,13 +454,13 @@ export default function Hero({ onNavigate }: HeroProps) {
                     className="flex-1 bg-[#0F3B2F] hover:bg-[#0F3B2F]/90 text-white py-2 px-3 rounded-lg font-medium text-sm transition-colors duration-180 flex items-center justify-center gap-1"
                   >
                     <Car className="w-4 h-4" />
-                    Go
+                    {t('stores.go')}
                   </button>
                   <button
                     onClick={() => window.location.href = `tel:${store.phone}`}
                     className="flex-1 bg-[#F7F7F8] hover:bg-gray-200 text-[#1A1A1A] py-2 px-3 rounded-lg font-medium text-sm transition-colors duration-180"
                   >
-                    Call
+                    {t('stores.call')}
                   </button>
                 </div>
               </div>
@@ -484,7 +475,7 @@ export default function Hero({ onNavigate }: HeroProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#1A1A1A] mb-4">
-              What we do for customers
+              {t('services.title')}
             </h2>
           </div>
           
@@ -509,10 +500,10 @@ export default function Hero({ onNavigate }: HeroProps) {
           
           <div className="flex gap-4 justify-center">
             <button className="bg-[#0F3B2F] hover:bg-[#0F3B2F]/90 text-white px-6 py-3 rounded-xl font-medium transition-all duration-180">
-              Request measuring
+              {t('services.request.measure')}
             </button>
             <button className="border border-gray-200 text-[#1A1A1A] px-6 py-3 rounded-xl font-medium hover:bg-gray-50 transition-all duration-180">
-              See delivery details
+              {t('services.delivery.details')}
             </button>
           </div>
         </div>
@@ -528,7 +519,7 @@ export default function Hero({ onNavigate }: HeroProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#1A1A1A] mb-4">
-              Proven capacity and standards
+              {t('certs.title')}
             </h2>
           </div>
           
@@ -561,7 +552,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           {/* Milestones */}
           <div className="mb-8">
             <h3 className="text-xl font-semibold text-[#1A1A1A] mb-6 text-center">
-              Company milestones
+              {t('milestones.title')}
             </h3>
             <div className="grid md:grid-cols-5 gap-4">
               {milestones.map((milestone, index) => (
@@ -591,7 +582,7 @@ export default function Hero({ onNavigate }: HeroProps) {
               onClick={() => onNavigate('about')}
               className="text-[#0F3B2F] hover:text-[#0F3B2F]/80 font-medium transition-colors duration-180 flex items-center gap-2 mx-auto"
             >
-              Become a partner
+              {t('milestones.partner')}
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -772,11 +763,11 @@ export default function Hero({ onNavigate }: HeroProps) {
             <div className="flex gap-3">
               <button className="flex items-center gap-2 bg-[#0F3B2F] text-white px-4 py-2 rounded-xl font-medium hover:bg-[#0F3B2F]/90 transition-colors">
                 <Eye className="w-4 h-4" />
-                View Certificate
+                {t('certs.view')}
               </button>
               <button className="flex items-center gap-2 border border-gray-200 text-[#1A1A1A] px-4 py-2 rounded-xl font-medium hover:bg-gray-50 transition-colors">
                 <Download className="w-4 h-4" />
-                Download PDF
+                {t('certs.download')}
               </button>
             </div>
           </div>

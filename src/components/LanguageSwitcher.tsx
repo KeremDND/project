@@ -3,18 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { Globe, ChevronDown } from 'lucide-react';
 import { SUPPORTED_LOCALES, type SupportedLocale, setLanguageCookie } from '../i18n';
 
-const LANGUAGE_NAMES: Record<SupportedLocale, string> = {
-  tk: 'Türkmen',
-  ru: 'Русский',
-  en: 'English',
-  de: 'Deutsch'
-};
-
-const LANGUAGE_FLAGS: Record<SupportedLocale, string> = {
-  tk: '🇹🇲',
-  ru: '🇷🇺',
-  en: '🇺🇸',
-  de: '🇩🇪'
+const LANGUAGE_CODES: Record<SupportedLocale, string> = {
+  tk: 'TKM',
+  ru: 'RU',
+  en: 'EN',
+  de: 'DEU'
 };
 
 interface LanguageSwitcherProps {
@@ -71,24 +64,23 @@ export default function LanguageSwitcher({ className = '' }: LanguageSwitcherPro
         aria-label={t('language.change')}
       >
         <Globe className="w-4 h-4 text-gray-600" />
-        <span className="text-sm font-medium text-gray-700">
-          {LANGUAGE_FLAGS[currentLang]} {LANGUAGE_NAMES[currentLang]}
+        <span className="text-sm font-bold text-gray-700">
+          {LANGUAGE_CODES[currentLang]}
         </span>
         <ChevronDown className={`w-4 h-4 text-gray-600 transition-transform duration-180 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
-        <div className="absolute top-full right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-1 min-w-[140px] z-50">
+        <div className="absolute top-full right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-1 min-w-[80px] z-50">
           {SUPPORTED_LOCALES.map((lang) => (
             <button
               key={lang}
               onClick={() => handleLanguageChange(lang)}
-              className={`w-full flex items-center gap-3 px-3 py-2 text-sm hover:bg-gray-50 transition-colors duration-180 ${
+              className={`w-full flex items-center justify-center px-3 py-2 text-sm font-bold hover:bg-gray-50 transition-colors duration-180 ${
                 lang === currentLang ? 'bg-[#0F3B2F] text-white hover:bg-[#0F3B2F]/90' : 'text-gray-700'
               }`}
             >
-              <span className="text-base">{LANGUAGE_FLAGS[lang]}</span>
-              <span className="font-medium">{LANGUAGE_NAMES[lang]}</span>
+              {LANGUAGE_CODES[lang]}
             </button>
           ))}
         </div>

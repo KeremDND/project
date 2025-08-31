@@ -2,21 +2,51 @@
   "instagram": {
     "handle": "@abadan_haly",
     "profileUrl": "https://www.instagram.com/abadan_haly/",
-    "followers": 0,
+    "followers": 4020,
     "videos": [
-      { "mp4": "/social/ig/reel-1.mp4", "poster": "/social/ig/reel-1.jpg", "title": "Reel 1", "permalink": "https://www.instagram.com/reel/DJ8Qdpvi7Aq/?igsh=cWNjNXE0MDN3bGVr" },
-      { "mp4": "/social/ig/reel-2.mp4", "poster": "/social/ig/reel-2.jpg", "title": "Reel 2", "permalink": "https://www.instagram.com/reel/DN0LFhL2IUc/?igsh=cjZqcHBpaGwyNmF0" },
-      { "mp4": "/social/ig/reel-3.mp4", "poster": "/social/ig/reel-3.jpg", "title": "Reel 3", "permalink": "https://www.instagram.com/reel/DN9vyIiCCHE/?igsh=Zmt5NDd2NnMzZG5z" }
+      {
+        "mp4": "/videos/instagram-reel-1.mp4",
+        "poster": "/Images/Halylar/Cream/abadan-haly-Gunes- Cream- 2004- carpet.jpg",
+        "title": "Beautiful Cream Carpet Design",
+        "permalink": "https://www.instagram.com/abadan_haly/"
+      },
+      {
+        "mp4": "/videos/instagram-reel-1.mp4",
+        "poster": "/Images/Halylar/Dark Gery/abadan-haly-Gunes- Dark Grey- 2095- carpet.jpg",
+        "title": "Elegant Dark Grey Collection",
+        "permalink": "https://www.instagram.com/abadan_haly/"
+      },
+      {
+        "mp4": "/videos/instagram-reel-1.mp4",
+        "poster": "/Images/Halylar/Green/abadan-haly-Gunes- Green- 2361- carpet.jpg",
+        "title": "Modern Green Carpet Style",
+        "permalink": "https://www.instagram.com/abadan_haly/"
+      }
     ]
   },
   "tiktok": {
     "handle": "@abadan_haly",
     "profileUrl": "https://www.tiktok.com/@abadan_haly",
-    "followers": 0,
+    "followers": 14400,
     "videos": [
-      { "mp4": "/social/tt/tiktok-1.mp4", "poster": "/social/tt/tiktok-1.jpg", "title": "TikTok 1", "permalink": "https://www.tiktok.com/@abadan_haly/video/7362584957337832722?is_from_webapp=1&sender_device=pc" },
-      { "mp4": "/social/tt/tiktok-2.mp4", "poster": "/social/tt/tiktok-2.jpg", "title": "TikTok 2", "permalink": "https://www.tiktok.com/@abadan_haly/video/7345535164015037704?is_from_webapp=1&sender_device=pc" },
-      { "mp4": "/social/tt/tiktok-3.mp4", "poster": "/social/tt/tiktok-3.jpg", "title": "TikTok 3", "permalink": "https://www.tiktok.com/@abadan_haly/video/7536206909553052946?is_from_webapp=1&sender_device=pc" }
+      {
+        "mp4": "/videos/tiktok-video-1.mp4",
+        "poster": "/Images/Halylar/Cream/abadan-haly-Gunes- Cream- 2021- carpet.jpg",
+        "title": "Premium Carpet Showcase",
+        "permalink": "https://www.tiktok.com/@abadan_haly"
+      },
+      {
+        "mp4": "/videos/tiktok-video-1.mp4",
+        "poster": "/Images/Halylar/Dark Gery/abadan-haly-Gunes- Dark Grey- 2355- carpet.jpg",
+        "title": "Luxury Carpet Collection",
+        "permalink": "https://www.tiktok.com/@abadan_haly"
+      },
+      {
+        "mp4": "/videos/tiktok-video-1.mp4",
+        "poster": "/Images/Halylar/Green/abadan-haly-Gunes- Grey Green- 2382- carpet.jpg",
+        "title": "Contemporary Design",
+        "permalink": "https://www.tiktok.com/@abadan_haly"
+      }
     ]
   }
 }
