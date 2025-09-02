@@ -516,13 +516,40 @@ export default function Gallery() {
               <div className="col-span-full text-center py-12">
                 <div className="w-8 h-8 border-2 border-[#0F3B2F] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                 <p className="text-gray-600">Loading optimized carpet images...</p>
+                <p className="text-sm text-gray-500 mt-2">Please wait while we load the latest carpet collection</p>
               </div>
             )}
             
             {manifestError && (
               <div className="col-span-full text-center py-12">
-                <p className="text-red-600 mb-4">Error loading carpet data: {manifestError}</p>
-                <p className="text-gray-600 text-sm">Using fallback images...</p>
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-red-600 text-2xl">⚠️</span>
+                </div>
+                <h3 className="text-lg font-semibold text-red-600 mb-2">Error Loading Carpet Data</h3>
+                <p className="text-red-500 mb-4">{manifestError}</p>
+                <p className="text-gray-600 text-sm mb-4">We're experiencing technical difficulties. Please try refreshing the page.</p>
+                <button 
+                  onClick={() => window.location.reload()} 
+                  className="bg-[#0F3B2F] hover:bg-[#0F3B2F]/90 text-white px-6 py-3 rounded-xl font-medium transition-colors duration-180"
+                >
+                  Refresh Page
+                </button>
+              </div>
+            )}
+            
+            {!manifestLoading && !manifestError && carpets.length === 0 && (
+              <div className="col-span-full text-center py-12">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-gray-600 text-2xl">📋</span>
+                </div>
+                <h3 className="text-lg font-semibold text-gray-600 mb-2">No Carpet Data Available</h3>
+                <p className="text-gray-500 mb-4">We couldn't load the carpet collection. This might be a temporary issue.</p>
+                <button 
+                  onClick={() => window.location.reload()} 
+                  className="bg-[#0F3B2F] hover:bg-[#0F3B2F]/90 text-white px-6 py-3 rounded-xl font-medium transition-colors duration-180"
+                >
+                  Try Again
+                </button>
               </div>
             )}
             
