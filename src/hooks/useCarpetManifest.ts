@@ -31,17 +31,39 @@ export function useCarpetManifest() {
         setLoading(true);
         setError(null);
         
+        console.log('Loading carpet manifest from /data/carpets.json...');
+        
         // Load the actual carpet manifest data
         const response = await fetch('/data/carpets.json');
+        console.log('Response status:', response.status);
+        console.log('Response ok:', response.ok);
+        
         if (!response.ok) {
-          throw new Error(`Failed to load carpet data: ${response.status}`);
+          throw new Error(`Failed to load carpet data: ${response.status} ${response.statusText}`);
         }
         
         const carpetData = await response.json();
+        console.log('Carpet data loaded successfully. Count:', carpetData.length);
+        console.log('First carpet:', carpetData[0]);
+        
         setCarpets(carpetData);
       } catch (err) {
         console.error('Error loading carpet data:', err);
         setError(err instanceof Error ? err.message : 'Failed to load carpet data');
+        
+        // Fallback: try to load from the root data directory
+        try {
+          console.log('Trying fallback path: /data/carpets.json');
+          const fallbackResponse = await fetch('/data/carpets.json');
+          if (fallbackResponse.ok) {
+            const fallbackData = await fallbackResponse.json();
+            console.log('Fallback data loaded successfully. Count:', fallbackData.length);
+            setCarpets(fallbackData);
+            setError(null);
+          }
+        } catch (fallbackErr) {
+          console.error('Fallback also failed:', fallbackErr);
+        }
       } finally {
         setLoading(false);
       }

@@ -29,6 +29,14 @@ export default function Gallery() {
 
   const galleryRef = useRef<HTMLDivElement>(null);
 
+  // Debug logging
+  useEffect(() => {
+    console.log('Gallery component - carpets data:', carpets);
+    console.log('Gallery component - manifestLoading:', manifestLoading);
+    console.log('Gallery component - manifestError:', manifestError);
+    console.log('Gallery component - carpets length:', carpets?.length);
+  }, [carpets, manifestLoading, manifestError]);
+
   // AI Results Listener
   useEffect(() => {
     function handler(e: any) {
