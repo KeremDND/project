@@ -50,7 +50,7 @@ export default function Hero({ onNavigate }: HeroProps) {
       phone: "+993 12 357230",
       mobile: "+993 61 000028",
       hours: "09:00–18:00, daily",
-      mapUrl: "https://maps.app.goo.gl/kP1XSSQmgN2gSU9s6"
+      mapUrl: "https://maps.app.goo.gl/q9k2cTRTr228KjbEA"
     },
     {
       id: 2,
@@ -62,7 +62,7 @@ export default function Hero({ onNavigate }: HeroProps) {
       phone: "+993 12 956169",
       mobile: "+993 65 080848",
       hours: "09:00–18:00, daily",
-      mapUrl: "https://maps.app.goo.gl/Lt7Y5a693HfJLqva6"
+      mapUrl: "https://maps.app.goo.gl/RKXJuH9ApxJxCC1E8"
     },
     {
       id: 3,
@@ -73,7 +73,7 @@ export default function Hero({ onNavigate }: HeroProps) {
       lng: 58.3146144,
       phone: "+993 71 817730",
       hours: "09:00–18:00, daily",
-      mapUrl: "https://maps.app.goo.gl/sZUErPkGwiSg27PM9"
+      mapUrl: "https://maps.app.goo.gl/5YcS9Sn4wZdJVbLw9"
     }
   ];
 
@@ -291,15 +291,15 @@ export default function Hero({ onNavigate }: HeroProps) {
         <picture>
           <source
             type="image/avif"
-            srcSet="/Images/Background_Image.jpg"
+            srcSet="/Images/page-images/abadan haly main hero.jpg"
           />
           <source
             type="image/webp"
-            srcSet="/Images/Background_Image.jpg"
+            srcSet="/Images/page-images/abadan haly main hero.jpg"
           />
           <img
-            src="/Images/Background_Image.jpg"
-            alt="Abadan Haly interior living room with modern carpet"
+            src="/Images/page-images/abadan haly main hero.jpg"
+            alt="Abadan Haly main hero background"
             className="absolute inset-0 h-full w-full object-cover"
             loading="eager"
             decoding="async"
@@ -307,45 +307,50 @@ export default function Hero({ onNavigate }: HeroProps) {
             onLoad={() => console.log('Background image loaded successfully')}
             onError={(e) => {
               console.log('Image failed to load, trying fallback');
-              e.currentTarget.src = "/images/page-images/abadan-haly-home-page-background.jpg";
+              e.currentTarget.src = "/Images/Background_Image.jpg";
             }}
           />
         </picture>
 
-        {/* Semi-transparent overlay panel (like the reference image) */}
-        <div className="absolute inset-0 flex items-center justify-start px-4 lg:px-8">
-          <div className="relative z-10 max-w-2xl">
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 lg:p-12 shadow-xl border border-white/20">
-              <h1
-                className="mb-6 text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0F3B2F] leading-tight"
-                style={{ fontFamily: '"Dancing Script", ui-serif, system-ui' }}
-              >
-                Abadan Haly Owadan Haly
-              </h1>
-              
-              <p className="text-lg lg:text-xl text-gray-700 mb-8 leading-relaxed">
-                Premium quality carpets crafted with modern technology and traditional expertise. 
-                Delivering excellence since 2016.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={() => onNavigate('gallery')}
-                  className="inline-flex items-center justify-center rounded-xl bg-[#0F3B2F] px-8 py-4 text-base font-medium text-white shadow-lg transition-all duration-200 hover:bg-[#0F3B2F]/90 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F3B2F]/40"
-                  aria-label="Explore Gallery"
-                >
+        {/* Glassmorphism Hero Content */}
+        <div className="absolute inset-0 flex items-center justify-center px-4 lg:px-8">
+          <div className="relative z-10 max-w-lg text-center transform translate-y-32">
+            {/* Glassmorphism Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+                                   <button
+                       onClick={() => onNavigate('gallery')}
+                       className="group relative overflow-hidden rounded-full bg-white/10 backdrop-blur-[30px] border border-white/20 px-8 py-4 text-base font-medium text-white shadow-lg transition-all duration-300 hover:bg-white/20 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                       aria-label="Explore Gallery"
+                     >
+                <span className="relative z-10 flex items-center gap-2">
                   Explore Gallery
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </button>
-                
-                <button
-                  onClick={() => setShow3DViewer(true)}
-                  className="inline-flex items-center justify-center rounded-xl border-2 border-[#0F3B2F] px-8 py-4 text-base font-medium text-[#0F3B2F] bg-white/80 backdrop-blur-sm transition-all duration-200 hover:bg-[#0F3B2F] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F3B2F]/40"
-                  aria-label="View in 3D"
-                >
-                  <Cube className="w-4 h-4 mr-2" />
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </button>
+              
+                                   <button
+                       onClick={() => setShow3DViewer(true)}
+                       className="group relative overflow-hidden rounded-full bg-white/5 backdrop-blur-[30px] border border-white/10 px-8 py-4 text-base font-medium text-white/90 shadow-lg transition-all duration-300 hover:bg-white/15 hover:text-white hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                       aria-label="View in 3D"
+                     >
+                <span className="relative z-10 flex items-center gap-2">
+                  <Cube className="w-4 h-4" />
                   View in 3D
-                </button>
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </button>
+            </div>
+
+            {/* Scroll Indicator with Animated Arrows */}
+            <div className="flex flex-col items-center gap-3 text-white/60">
+              <span className="text-xs font-medium">Scroll to explore</span>
+              <div className="flex flex-col items-center">
+                <div className="w-0.5 h-8 bg-gradient-to-b from-white/40 to-transparent mb-2"></div>
+                <div className="flex flex-col items-center animate-bounce">
+                  <ArrowRight className="w-4 h-4 text-white/60 rotate-90 transform -translate-y-1" />
+                  <ArrowRight className="w-3 h-3 text-white/40 rotate-90 transform -translate-y-1" />
+                </div>
               </div>
             </div>
           </div>
