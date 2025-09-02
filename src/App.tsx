@@ -1,4 +1,6 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { AuthProvider } from './contexts/AuthContext';
@@ -99,8 +101,10 @@ function App() {
         <main id="main-content" tabIndex={-1}>
           {renderPage()}
         </main>
-        <Footer onNavigate={navigate} />
-        <LanguageToast />
+                       <Footer onNavigate={navigate} />
+               <LanguageToast />
+               <Analytics />
+               <SpeedInsights />
       </div>
     </AuthProvider>
   );

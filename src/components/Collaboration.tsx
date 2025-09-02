@@ -31,7 +31,8 @@ export default function Collaboration() {
     businessType: '',
     programInterest: [] as string[],
     volumesTimeline: '',
-    sendLineSheet: false
+    sendLineSheet: false,
+    files: [] as File[]
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -62,7 +63,7 @@ export default function Collaboration() {
     formRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     
     if (type === 'checkbox') {
@@ -80,6 +81,15 @@ export default function Collaboration() {
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    setFormData(prev => ({ ...prev, files: [...prev.files, ...files] }));
+  };
+
+  const removeFile = (index: number) => {
+    setFormData(prev => ({ ...prev, files: prev.files.filter((_, i) => i !== index) }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -103,7 +113,8 @@ export default function Collaboration() {
         businessType: '',
         programInterest: [],
         volumesTimeline: '',
-        sendLineSheet: false
+        sendLineSheet: false,
+        files: []
       });
       setShowSuccess(false);
     }, 5000);
@@ -193,8 +204,8 @@ export default function Collaboration() {
           <div className="relative">
             <div className="rounded-2xl overflow-hidden shadow-sm">
               <img
-                src="https://abadanhaly.com.tm/storage/image_index/0y7i7lR6bP.jpg"
-                alt="Vandewiele loom line, Turkmenistan"
+                src="https://business.com.tm/images/uploads/posts/Abadan%20haly%208.jpg"
+                alt="Abadan Haly manufacturing facility, Turkmenistan"
                 className="w-full h-96 object-cover"
               />
             </div>
@@ -769,11 +780,44 @@ export default function Collaboration() {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center hover:border-gray-300 transition-colors">
-                      <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                      <p className="text-sm text-gray-600 mb-1">Upload brief/spec (PDF/Images)</p>
-                      <p className="text-xs text-gray-500">Optional: Product briefs, specifications, or reference materials</p>
+                    <div className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center hover:border-gray-300 transition-colors group">
+                      <input
+                        type="file"
+                        multiple
+                        accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                        onChange={handleFileChange}
+                        className="hidden"
+                        id="fileUpload"
+                      />
+                      <label htmlFor="fileUpload" className="cursor-pointer">
+                        <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2 group-hover:text-[#0F3B2F] transition-colors" />
+                        <p className="text-sm text-gray-600 mb-1 group-hover:text-[#0F3B2F] transition-colors">Upload brief/spec (PDF/Images)</p>
+                        <p className="text-xs text-gray-500">Optional: Product briefs, specifications, or reference materials</p>
+                      </label>
                     </div>
+
+                    {/* File List */}
+                    {formData.files.length > 0 && (
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium text-[#1A1A1A]">Uploaded Files:</p>
+                        {formData.files.map((file, index) => (
+                          <div key={index} className="flex items-center justify-between bg-gray-50 rounded-lg p-3">
+                            <div className="flex items-center gap-3">
+                              <FileText className="w-4 h-4 text-[#0F3B2F]" />
+                              <span className="text-sm text-gray-700">{file.name}</span>
+                              <span className="text-xs text-gray-500">({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => removeFile(index)}
+                              className="text-red-500 hover:text-red-700 transition-colors"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
 
                     <label className="flex items-center gap-3 cursor-pointer">
                       <input
@@ -786,22 +830,25 @@ export default function Collaboration() {
                       <span className="text-sm text-[#1A1A1A]">Send line sheet & price tiers</span>
                     </label>
 
-                    <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
-                      <label className="flex items-start gap-3 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          name="captchaVerification"
-                          required
-                          className="w-4 h-4 text-[#0F3B2F] border-gray-300 rounded focus:ring-[#0F3B2F] mt-0.5"
-                        />
+                    <div className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-2xl p-6 backdrop-blur-sm shadow-sm">
+                      <label className="flex items-start gap-4 cursor-pointer group">
+                        <div className="relative">
+                          <input
+                            type="checkbox"
+                            name="captchaVerification"
+                            required
+                            className="w-5 h-5 text-[#0F3B2F] border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#0F3B2F] focus:border-[#0F3B2F] mt-0.5 transition-all duration-200"
+                          />
+                          <div className="absolute inset-0 w-5 h-5 rounded border-2 border-transparent group-hover:border-[#0F3B2F]/30 transition-all duration-200"></div>
+                        </div>
                         <div className="flex-1">
-                          <span className="text-sm text-[#1A1A1A] font-medium">I'm not a robot *</span>
-                          <p className="text-xs text-gray-500 mt-1">
-                            Please verify that you are human to prevent spam submissions
+                          <span className="text-sm text-[#1A1A1A] font-semibold group-hover:text-[#0F3B2F] transition-colors">I'm not a robot *</span>
+                          <p className="text-xs text-gray-600 mt-2 leading-relaxed">
+                            Please verify that you are human to prevent spam submissions. This helps us maintain the quality of our partnership requests.
                           </p>
                         </div>
-                        <div className="w-8 h-8 bg-gray-200 rounded border border-gray-300 flex items-center justify-center">
-                          <Shield className="w-4 h-4 text-gray-500" />
+                        <div className="w-10 h-10 bg-gradient-to-br from-[#0F3B2F]/10 to-[#0F3B2F]/20 rounded-xl border border-[#0F3B2F]/20 flex items-center justify-center group-hover:scale-110 transition-all duration-200">
+                          <Shield className="w-5 h-5 text-[#0F3B2F]" />
                         </div>
                       </label>
                     </div>

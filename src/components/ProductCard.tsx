@@ -125,7 +125,7 @@ export default function ProductCard({ product, viewMode, onViewProduct }: Produc
                 className="flex-1 bg-emerald-800 hover:bg-emerald-700 disabled:bg-gray-300 text-white py-4 rounded-2xl font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105 disabled:cursor-not-allowed disabled:transform-none"
                 disabled={!product.inStock}
               >
-                {product.inStock ? 'View Details' : 'Out of Stock'}
+                {product.inStock ? 'View' : 'Out of Stock'}
               </button>
               
               <button
@@ -163,7 +163,7 @@ export default function ProductCard({ product, viewMode, onViewProduct }: Produc
         <img
           src={product.image}
           alt={product.name}
-          className="relative z-10 w-full h-full object-contain p-6 transition-all duration-1000 group-hover:scale-105"
+          className="relative z-10 w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
           onLoad={() => setImageLoaded(true)}
           onError={(e) => {
             e.currentTarget.src = "https://images.pexels.com/photos/6782567/pexels-photo-6782567.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop";
@@ -260,7 +260,7 @@ export default function ProductCard({ product, viewMode, onViewProduct }: Produc
           disabled={!product.inStock}
           aria-label={`View details for ${product.name}`}
         >
-          {product.inStock ? 'View Details' : 'Out of Stock'}
+          {product.inStock ? 'View' : 'Out of Stock'}
         </button>
       </div>
     </div>

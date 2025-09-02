@@ -209,8 +209,8 @@ export default function About({ onNavigate }: AboutProps) {
           <div className="relative">
             <div className="rounded-2xl overflow-hidden shadow-sm">
               <img
-                src="https://abadanhaly.com.tm/storage/image_index/0y7i7lR6bP.jpg"
-                alt="Vandewiele loom line, Turkmenistan"
+                src="/Images/page-images/Abadan haly building about us.JPG"
+                alt="Abadan Haly building, Turkmenistan"
                 className="w-full h-96 object-cover"
               />
             </div>
