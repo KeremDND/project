@@ -35,7 +35,32 @@ export default function Gallery() {
     console.log('Gallery component - manifestLoading:', manifestLoading);
     console.log('Gallery component - manifestError:', manifestError);
     console.log('Gallery component - carpets length:', carpets?.length);
+    
+    // Test data accessibility
+    if (carpets && carpets.length > 0) {
+      console.log('First carpet sample:', carpets[0]);
+      console.log('First carpet image path:', carpets[0].srcset?.jpg?.[0]?.src);
+    }
   }, [carpets, manifestLoading, manifestError]);
+
+  // Test data loading manually
+  useEffect(() => {
+    const testDataLoading = async () => {
+      try {
+        console.log('Testing data loading manually...');
+        const response = await fetch('/data/carpets.json');
+        console.log('Manual test response:', response.status, response.ok);
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Manual test data length:', data.length);
+        }
+      } catch (err) {
+        console.error('Manual test failed:', err);
+      }
+    };
+    
+    testDataLoading();
+  }, []);
 
   // AI Results Listener
   useEffect(() => {
