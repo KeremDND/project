@@ -1,0 +1,9 @@
+.next
+out
+node_modules
+.env
+.env.local
+prisma/dev.db
+prisma/dev.db-journal
+# Prisma generated native engine binaries can be large; keep client code
+src/generated/prisma/*.node
