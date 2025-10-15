@@ -58,13 +58,41 @@ export default function SettingsPage() {
         </TabsContent>
 
         <TabsContent value="locales">
-          <div className="space-y-3">
-            <p>Default locale:</p>
-            {["tk", "ru", "en"].map((l) => (
-              <label key={l} className="flex items-center gap-2">
-                <input type="radio" checked={data.defaultLocale === l} onChange={() => setData({ ...data, defaultLocale: l })} /> {l.toUpperCase()}
-              </label>
-            ))}
+          <div className="space-y-4">
+            <div>
+              <p className="font-medium mb-2">Enabled locales:</p>
+              <div className="flex gap-4">
+                {["tk", "ru", "en"].map((l) => {
+                  const enabled: string[] = Array.isArray(data.locales) ? data.locales : ["tk", "ru", "en"];
+                  const checked = enabled.includes(l);
+                  return (
+                    <label key={l} className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={(e) => {
+                          const next = e.target.checked
+                            ? Array.from(new Set([...(enabled ?? []), l]))
+                            : (enabled ?? []).filter((x: string) => x !== l);
+                          let nextDefault = data.defaultLocale;
+                          if (!next.includes(nextDefault)) nextDefault = next[0] ?? "tk";
+                          setData({ ...data, locales: next, defaultLocale: nextDefault });
+                        }}
+                      />
+                      {l.toUpperCase()}
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+            <div>
+              <p className="font-medium mb-2">Default locale:</p>
+              {["tk", "ru", "en"].map((l) => (
+                <label key={l} className="flex items-center gap-2 mr-4">
+                  <input type="radio" checked={data.defaultLocale === l} onChange={() => setData({ ...data, defaultLocale: l })} /> {l.toUpperCase()}
+                </label>
+              ))}
+            </div>
           </div>
         </TabsContent>
 
@@ -84,6 +112,8 @@ export default function SettingsPage() {
             <Input value={data.seoTitle || ""} onChange={(e) => setData({ ...data, seoTitle: e.target.value })} placeholder="Default SEO title" />
             <Input value={data.seoDescription || ""} onChange={(e) => setData({ ...data, seoDescription: e.target.value })} placeholder="Default SEO description" />
             <Input value={data.canonicalHost || ""} onChange={(e) => setData({ ...data, canonicalHost: e.target.value })} placeholder="Canonical host URL" />
+            <Input value={data.ogImageUrl || ""} onChange={(e) => setData({ ...data, ogImageUrl: e.target.value })} placeholder="OG Image URL" />
+            <Input value={data.twitterHandle || ""} onChange={(e) => setData({ ...data, twitterHandle: e.target.value })} placeholder="Twitter handle" />
           </div>
         </TabsContent>
 
@@ -91,6 +121,8 @@ export default function SettingsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <Input value={data.phonePublic || ""} onChange={(e) => setData({ ...data, phonePublic: e.target.value })} placeholder="Phone" />
             <Input value={data.emailPublic || ""} onChange={(e) => setData({ ...data, emailPublic: e.target.value })} placeholder="Email" />
+            <Input value={data.whatsappLink || ""} onChange={(e) => setData({ ...data, whatsappLink: e.target.value })} placeholder="WhatsApp link" />
+            <Input value={data.telegramLink || ""} onChange={(e) => setData({ ...data, telegramLink: e.target.value })} placeholder="Telegram link" />
             <Input value={data.instagramLink || ""} onChange={(e) => setData({ ...data, instagramLink: e.target.value })} placeholder="Instagram" />
             <Input value={data.tiktokLink || ""} onChange={(e) => setData({ ...data, tiktokLink: e.target.value })} placeholder="TikTok" />
             <Input value={data.addressHQ || ""} onChange={(e) => setData({ ...data, addressHQ: e.target.value })} placeholder="HQ address" />
