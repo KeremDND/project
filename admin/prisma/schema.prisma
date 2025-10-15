@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Settings model
+model Setting {
+  id               Int       @id @default(1)
+
+  // Brand
+  brandName        String    @default("Abadan Haly")
+  slogan           String    @default("Abadan Haly — Owadan Haly.")
+  primaryHex       String    @default("#0B6A43")
+  accentHex        String    @default("#0E7A4C")
+  lightMode        Boolean   @default(true)
+
+  // Locales
+  defaultLocale    String    @default("tk")
+  // Store JSON string representation of locales for SQLite
+  locales          String    @default("[\"tk\",\"ru\",\"en\"]")
+
+  // Features
+  arEnabled        Boolean   @default(true)
+  aiBarEnabled     Boolean   @default(true)
+
+  // SEO Defaults
+  seoTitle         String?
+  seoDescription   String?
+  ogImageUrl       String?
+  twitterHandle    String?
+  canonicalHost    String?
+
+  // Social & Contacts
+  phonePublic      String?
+  emailPublic      String?
+  whatsappLink     String?
+  telegramLink     String?
+  instagramLink    String?
+  tiktokLink       String?
+  addressHQ        String?
+
+  // Analytics
+  gaId             String?
+  gtmId            String?
+  metaPixelId      String?
+  yandexMetrikaId  String?
+
+  // Email
+  smtpFromName     String?   @default("Abadan Haly")
+  smtpFromEmail    String?   @default("noreply@abadanhaly.com.tm")
+
+  // Security
+  recaptchaSiteKey String?
+  // Store JSON string representation for SQLite
+  corsOrigins      String    @default("[]")
+
+  // System
+  cacheTTLSeconds  Int       @default(600)
+  updatedAt        DateTime  @updatedAt
+  createdAt        DateTime  @default(now())
+}
